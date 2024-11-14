@@ -1,5 +1,3 @@
 <?php
-echo 'adieu2024.hackers.com!�׽�Ʈtest';
+echo 'adieu2024.hackers.com!�׽�Ʈtest테스트';
 ?>
-
-�׽�Ʈ
