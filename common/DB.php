@@ -11,14 +11,14 @@ class DB
             'host' => 'adieu2024.cluster-c26rhbuz6osw.ap-northeast-2.rds.amazonaws.com',
             'user' => 'web_adieuhackers',
             'password' => 'hacdkeb2024!!',
-            'database' => 'adieuhackers',
+            'database' => 'adieu2024',
             'port' => '3306',
         ],
         'slave' => [
             'host' => 'adieu2024.cluster-ro-c26rhbuz6osw.ap-northeast-2.rds.amazonaws.com',
             'user' => 'web_adieuhackers',
             'password' => 'hacdkeb2024!!',
-            'database' => 'adieuhackers',
+            'database' => 'adieu2024',
             'port' => '3306',
         ],
         'hacademia' => [
