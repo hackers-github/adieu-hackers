@@ -1,5 +1,17 @@
 <?php
 
+function escapeHtmlData($data){
+    if(empty($data)){
+        return $data;
+    }
+
+    if(is_array($data)){
+        return array_map('escapeHtmlData', $data);
+    }
+
+    return htmlspecialchars($data);
+}
+
 // 입력값 필터링 및 보안 처리
 function sanitizeInput($data) 
 {
@@ -13,7 +25,7 @@ function sanitizeInput($data)
 
 // 로그인 여부 체크
 function isLogin() {
-    if(empty($_SESSION['hackers2024_member_id']) || empty($_SESSION['hackers2024_member_cp'])) {
+    if(empty($_SESSION['hackers2024_member_id']) || empty($_SESSION['hackers2024_member_cp']) || empty($_SESSION['hackers2024_member_user_level'])) {
         return false;
     }
 
@@ -22,7 +34,7 @@ function isLogin() {
 
 // 관리자 여부 체크
 function isAdmin() {
-    if(empty($_SESSION['hackers2024_is_admin']) || $_SESSION['hackers2024_is_admin'] != 'Y') {
+    if(empty($_SESSION['hackers2024_member_user_level']) || $_SESSION['hackers2024_member_user_level'] != '2') {
         return false;
     }
 
@@ -40,7 +52,7 @@ function checkLogin() {
 // 관리자 여부 체크 후 아니면 메인페이지로 리다이렉트
 function checkAdmin() {
     if(!isAdmin()) {
-        header("Location: /dev/landing/hackers2024");
+        header("Location: /");
         exit;
     }
 }
