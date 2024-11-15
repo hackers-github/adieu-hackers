@@ -34,8 +34,8 @@ switch($test) {
         } ?>
         <form action="/test.php?test=s3" method="post" enctype="multipart/form-data">
             <input type="file" name="file">
-            <button type="submit">업로드</button>
+            <button type="submit">?��로드</button>
         </form>
-        <? break;
+        <?php break;
 }
 ?>
