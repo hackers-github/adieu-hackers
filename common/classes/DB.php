@@ -1,5 +1,10 @@
 <?php
 
+namespace classes;
+
+use mysqli;
+use Exception;
+
 class DB
 {
     private $dbType = null;

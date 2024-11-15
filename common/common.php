@@ -4,8 +4,10 @@ ini_set("display_errors", 1);
 
 session_start();
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/common/DB.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/common/func.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/common/autoload.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/common/func.php';
+
+use \classes\DB;
 
 // 호스트 체크
 if($_SERVER['HTTP_HOST'] == 'tdevadieu2024.hackers.com'){
@@ -31,5 +33,5 @@ if(!empty($_FILES)){
     $_FILES = sanitizeInput($_FILES);
 }
 
-// 온오프 코드
-define('ONOFF_CODE', '036002');
+// 업로드 경로
+define('UPLOAD_PATH', 'images/event/hackers2024');
