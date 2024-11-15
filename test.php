@@ -1,14 +1,13 @@
 <?php
-
-if($_SERVER['REMOTE_ADDR'] != '10.10.6.82') {
-    exit;
-}
-
 include $_SERVER['DOCUMENT_ROOT'] . '/common/common.php';
 
 use classes\FileManager;
 
 $test = $_GET['test'] ?? '';
+
+if(empty($test)) {
+    exit;
+}
 
 switch($test) {
     case 'phpinfo':
