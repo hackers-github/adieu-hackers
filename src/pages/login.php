@@ -1,4 +1,4 @@
-<?
+<?php
 use src\services\OnOffService;
 
 $onOffService = new OnOffService();
