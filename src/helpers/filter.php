@@ -22,3 +22,19 @@ function sanitizeInput($data)
     $data = trim($data); // 앞뒤 공백 제거
     return $data;
 }
+
+// 입력값 검증
+function validate_data($data){
+    foreach($data as $key => $value){
+        if(!$value){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// JSON 인코딩
+function jsonEncode($data) {
+    return json_encode($data, JSON_UNESCAPED_UNICODE);
+}
