@@ -7,10 +7,6 @@
  */
 namespace src\services;
 
-if(file_exists(BASE_PATH . '/vendor/autoload.php')){
-    require_once BASE_PATH . '/vendor/autoload.php';
-}
-
 use Aws\S3\S3Client;
 use Aws\S3\Exception\S3Exception;
 

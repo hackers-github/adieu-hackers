@@ -24,19 +24,4 @@ include HELPERS_PATH . '/filter.php';
 include HELPERS_PATH . '/auth.php';
 
 // 클래스 자동 로드
-spl_autoload_register(function ($className) {
-    $className = str_replace('\\', '/', $className);
-
-    $dirs = [
-        BASE_PATH . '/',
-    ];
-
-    foreach ($dirs as $dir) {
-        $classPath = $dir . $className . '.php';
-
-        if(file_exists($classPath)) {
-            require_once $classPath;
-            return;
-        }
-    }
-});
+include BASE_PATH . '/vendor/autoload.php'; // composer autoload
