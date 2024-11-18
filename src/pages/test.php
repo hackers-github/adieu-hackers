@@ -32,7 +32,15 @@ switch($test) {
 
     case 's3':
         if(!empty($_FILES['file'])) {
-            $s3Service = new S3Service('hackersac-cdn');
+            
+            if(IS_DEV) {
+                echo 'hacademia<br>';
+                $s3Service = new S3Service('hackersac-cdn');
+            } else {
+                echo 'adieu2024<br>';
+                $s3Service = new S3Service('adieu2024');
+            }
+
             $result = $s3Service->upload($_FILES['file']);
 
             var_dump($result);
