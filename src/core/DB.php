@@ -17,7 +17,7 @@ class DB
 
     public function getDb() {
         if($this->db === null) {
-            $this->db = $this->connect();
+            $this->db = DBConnection::getConnection($this->dbType);
         }
 
         return $this->db;
@@ -25,7 +25,7 @@ class DB
 
     public function prepare($sql) {
         if($this->db === null) {
-            $this->db = $this->connect();
+            $this->db = DBConnection::getConnection($this->dbType);
         }
 
         if(empty($this->db)) {
@@ -93,16 +93,4 @@ class DB
 	    $this->stmt->close();
 	    return $result;
     }
-
-    private function connect() {
-        $databaseConfig = include CONFIG_PATH . '/database.php';
-
-        $host = $databaseConfig[$this->dbType]['host'];
-        $user = $databaseConfig[$this->dbType]['user'];
-        $password = $databaseConfig[$this->dbType]['password'];
-        $database = $databaseConfig[$this->dbType]['database'];
-        $port = $databaseConfig[$this->dbType]['port'];
-
-		return new mysqli($host, $user, $password, $database, $port);
-	}
 }
