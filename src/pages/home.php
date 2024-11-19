@@ -377,7 +377,7 @@ $img_url = $config['hacademia_cdn_url'];
                                     <p><?=$participant['title']?></p>
                                 </a>
                             </li>
-                        <? } 
+                        <?php } 
                     } ?>
                 </ul>
             </div>
