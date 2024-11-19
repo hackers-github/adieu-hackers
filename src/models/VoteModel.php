@@ -15,7 +15,7 @@ class VoteModel extends BaseModel
     }
 
     public function insertData($data) {
-        $qry = "INSERT INTO event_hackers_vote (member_id, p_id, vote_type) VALUES (?, ?, ?)";
+        $qry = "INSERT INTO event_hackers_vote (member_id, p_id, vote_type, reg_date) VALUES (?, ?, ?, NOW())";
         $this->db->prepare($qry);
         $this->db->stmt_bind_param("iii", [$data['member_id'], $data['p_id'], $data['vote_type']]);
         return $this->db->stmt_execute('insert');
