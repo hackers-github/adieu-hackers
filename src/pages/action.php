@@ -3,6 +3,7 @@
 use \src\services\S3Service;
 use \src\services\OnOffService;
 use \src\services\MemberService;
+use \src\services\VoteService;
 
 if(empty($_POST['action'])){
     echo jsonEncode(['result' => 'fail', 'message' => '잘못된 접근입니다.']);
@@ -37,5 +38,26 @@ switch($action){
         // 로그인 결과 반환
         echo jsonEncode($loginResult);
         exit;
+
+    case 'vote':
+        $member_id = $_SESSION['hackers2024_member_id'];
+        $p_id = $_POST['p_id'];
+        $vote_type = $_POST['vote_type'];
+
+        $voteService = new VoteService();
+        $voteResult = $voteService->vote([
+            'member_id' => $member_id,
+            'p_id' => $p_id,
+            'vote_type' => $vote_type
+        ]);
+
+        if($voteResult['result'] == 'success'){
+            echo jsonEncode(['result' => 'success', 'p_id' => $p_id, 'vote_type' => $vote_type]);
+        }else{
+            echo jsonEncode($voteResult);
+        }
+        exit;
+
+    break;
 }
 ?>

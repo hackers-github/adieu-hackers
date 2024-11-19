@@ -21,7 +21,7 @@ function isAdmin() {
 // 로그인 여부 체크 후 아니면 로그인페이지로 리다이렉트
 function checkLogin() {
     if(!isLogin()){
-        header("Location: /login.php");
+        header("Location: /?page=login");
         exit;
     }
 }
