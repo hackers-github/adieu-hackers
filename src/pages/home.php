@@ -92,18 +92,18 @@ $img_url = $config['hacademia_cdn_url'];
 
         // 투표 팝업 트로피 배지 표시
         'trophyBadgePop': () => {
-            $('.vote_pop .vote_bott input').css('display', 'block');
+            uncheckVote();
             $('.vote_pop .vote_bott label').css('display', 'block');
 
             // 투표한 트로피는 숨김
             $('#my_vote input').each(function(){
                 if($(this).val() != '') {
-                    $('.vote_pop .vote_bott input[id="'+voteType[$(this).data('vote_type')]+'"]').css('display', 'none');
                     $('.vote_pop .vote_bott label[for="'+voteType[$(this).data('vote_type')]+'"]').css('display', 'none');
                 }
             });
         },
 
+        // 전체 투표 여부
         'isAllVote': () => {
             let isAllVote = true;
             $('#my_vote input').each(function(){
