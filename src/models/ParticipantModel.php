@@ -20,4 +20,12 @@ class ParticipantModel extends BaseModel
         $result = $this->db->stmt_execute('insert');   
         return $result;
     }
+
+    public function updateData($params) {
+        $qry = "UPDATE event_hackers_participant SET team_name = ?, title = ?, image_url = ?, image_org_name = ? WHERE p_id = ?";
+        $this->db->prepare($qry);
+        $this->db->stmt_bind_param("ssssi", [$params['team_name'], $params['title'], $params['image_url'], $params['image_org_name'], $params['p_id']]);
+        $result = $this->db->stmt_execute('update');
+        return $result;
+    }
 }

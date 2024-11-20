@@ -131,6 +131,40 @@ function add_participant(){
     ajax_request(formData);
 }
 
+// 참가자 수정
+function modify_participant(p_id){
+    const team_name = $('#modify_'+p_id+' input[name="team_name"]').val();
+    const title = $('#modify_'+p_id+' input[name="title"]').val();
+    const imageFile = $('#modify_'+p_id+' input[name="image"]')[0].files[0]; // 파일 객체 가져오기
+    let original_image = $('#modify_'+p_id+' input[name="original_image"]').val();
+    let original_image_name = $('#modify_'+p_id+' input[name="original_image_name"]').val();
+
+    // 기존 이미지가 있는데 새롭게 이미지를 등록한 경우
+    if(original_image && imageFile){
+        if(!validate_participant({team_name: team_name, title: title, image: imageFile})){
+            return;
+        }
+
+        original_image = '';
+        original_image_name = '';
+    } else {
+        if(!validate_participant({team_name: team_name, title: title})){
+            return;
+        }
+    }
+
+    const formData = new FormData();
+    formData.append('action', 'modify_participant');
+    formData.append('p_id', p_id);
+    formData.append('team_name', team_name);
+    formData.append('title', title);
+    formData.append('original_image', original_image);
+    formData.append('original_image_name', original_image_name);
+    formData.append('image', imageFile);
+
+    ajax_request(formData);
+}
+
 // 참가자 유효성 검사
 function validate_participant(data){
     for(const key in data){

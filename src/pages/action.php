@@ -43,6 +43,41 @@ switch($action){
         echo jsonEncode($result);
         exit;
 
+    case 'modify_participant' :
+        $participantService = new ParticipantService();
+        if(IS_DEV){
+            $s3Service = new S3Service('hackersac-cdn');
+        } else {
+            $s3Service = new S3Service('adieu2024');
+        }
+
+        $p_id = $_POST['p_id'];
+        $team_name = $_POST['team_name'];
+        $title = $_POST['title'];
+        $image = empty($_FILES['image']) ? '' : $_FILES['image'];
+        $original_image = $_POST['original_image'];
+        $original_image_name = $_POST['original_image_name'];
+
+        if(empty($original_image) && $image['name']){
+            $uploadImage = $s3Service->upload($image);
+            $image_url = empty($uploadImage['url']) ? '' : $uploadImage['url'];
+            $image_org_name = empty($image['name']) ? '' : $image['name'];
+        }else{
+            $image_url = $original_image;
+            $image_org_name = $original_image_name;
+        }
+
+        $result = $participantService->modifyParticipant([
+            'p_id' => $p_id,
+            'team_name' => $team_name,
+            'title' => $title,
+            'image_url' => $image_url,
+            'image_org_name' => $image_org_name
+        ]);
+
+        echo jsonEncode($result);
+        exit;
+        
     case 'onoff' :
         $onoff = $_POST['onoff'];
         $onOffService = new OnOffService();
