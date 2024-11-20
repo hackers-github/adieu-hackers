@@ -13,6 +13,13 @@ if(empty($_POST['action'])){
 $action = $_POST['action'];
 
 switch($action){
+    case 'onoff' :
+        $onoff = $_POST['onoff'];
+        $onOffService = new OnOffService();
+        $result = $onOffService->updateOnOff($onoff);
+        echo jsonEncode($result);
+        exit;
+
     case 'login' :
         $user_mobile = $_POST['user_mobile'];
         $onOff = $_POST['onoff'];

@@ -32,6 +32,16 @@ class OnOffService
 
     public function updateOnOff($onoff)
     {
-        return $this->onOffModel->updateOnOff($onoff);
+        if(!validate_data(['onoff' => $onoff])){
+            return ['result' => 'fail', 'message' => '잘못된 접근입니다.'];
+        }
+
+        $result = $this->onOffModel->updateOnOff($onoff);
+
+        if($result['success']){
+            return ['result' => 'success', 'message' => '온오프 상태가 변경되었습니다.'];
+        }else{
+            return ['result' => 'fail', 'message' => '오류가 발생했습니다.'];
+        }
     }
 }

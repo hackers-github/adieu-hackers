@@ -102,3 +102,12 @@ function vote(){
 
     ajax_request(formData);
 }
+
+// 투표창 설정 시작/종료
+function onoff(onoff){
+    const formData = new FormData();
+    formData.append('action', 'onoff');
+    formData.append('onoff', onoff);
+
+    ajax_request(formData);
+}

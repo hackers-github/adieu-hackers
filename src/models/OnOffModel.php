@@ -14,4 +14,14 @@ class OnOffModel extends BaseModel
 
         return $result;
     }
+
+    public function updateOnOff($onoff)
+    {
+        $qry = "UPDATE event_hackers_onoff SET onoff = ?";
+        $this->db->prepare($qry);
+        $this->db->stmt_bind_param("i", [$onoff]);
+        $result = $this->db->stmt_execute('update');
+
+        return $result;
+    }
 }
