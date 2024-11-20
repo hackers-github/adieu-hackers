@@ -6,6 +6,15 @@ use src\models\BaseModel;
 
 class VoteModel extends BaseModel
 {
+    // 전체 참가자별 투표 수
+    public function countGroupByParticipant() {
+        $qry =  "SELECT p_id, vote_type, COUNT(*) AS vote_count FROM event_hackers_vote GROUP BY p_id, vote_type";
+        $this->db_slave->prepare($qry);
+        $votes = $this->db_slave->stmt_execute('all');
+        return $votes;
+    }
+
+    // 회원별 투표 조회
     public function selectListByMemberId($member_id) {
         $qry = "SELECT p_id, vote_type FROM event_hackers_vote WHERE member_id = ?";
         $this->db_slave->prepare($qry);

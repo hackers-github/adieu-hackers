@@ -13,6 +13,49 @@ class VoteService
         $this->voteModel = new VoteModel();
     }
 
+    // 투표 통계
+    public function getVoteStatistics() {
+        $votes = [];
+        $votesCount = $this->voteModel->countGroupByParticipant();
+        $voteTypePoints = [
+            1 => 3,
+            2 => 2,
+            3 => 1
+        ];
+        
+        // 가중치 계산
+        foreach ($votesCount as $vote) {
+            $participantId = $vote['p_id'];
+            $voteCount = $vote['vote_count'] * $voteTypePoints[$vote['vote_type']];
+            $votes[$participantId][$vote['vote_type']] = $voteCount;
+        }
+        
+        // 총점 계산
+        $totalVotes = [];
+        foreach ($votes as $participantId => $vote) {
+            $totalVotes[$participantId] = array_sum($vote);
+        }
+        
+        // 순위 계산
+        $sortedVotes = $totalVotes;
+        arsort($sortedVotes);
+        $ranks = array_flip(array_keys($sortedVotes));
+        
+        // 최종 결과 조합
+        $result = [];
+        foreach ($votes as $participantId => $voteData) {
+            $result[$participantId] = [
+                'vote_type_1' => $voteData['1'] ?? 0,
+                'vote_type_2' => $voteData['2'] ?? 0,
+                'vote_type_3' => $voteData['3'] ?? 0,
+                'total' => $totalVotes[$participantId],
+                'rank' => $ranks[$participantId]
+            ];
+        }
+        
+        return $result;
+    }
+
     // 참가자 조회
     public function getVoteListByMemberId($member_id) {
         if(!$member_id){
