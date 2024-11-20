@@ -4,6 +4,7 @@ use \src\services\S3Service;
 use \src\services\OnOffService;
 use \src\services\MemberService;
 use \src\services\VoteService;
+use \src\services\ParticipantService;
 
 if(empty($_POST['action'])){
     echo jsonEncode(['result' => 'fail', 'message' => '잘못된 접근입니다.']);
@@ -13,6 +14,35 @@ if(empty($_POST['action'])){
 $action = $_POST['action'];
 
 switch($action){
+    case 'add_participant' :
+        $participantService = new ParticipantService();
+        if(IS_DEV){
+            $s3Service = new S3Service('hackersac-cdn');
+        } else {
+            $s3Service = new S3Service('adieu2024');
+        }
+
+        $team_name = $_POST['team_name'];
+        $title = $_POST['title'];
+        $image = $_FILES['image'];
+        $image_url = '';
+        $image_org_name = empty($image['name']) ? '' : $image['name'];
+
+        if(!empty($image)){
+            $uploadImage = $s3Service->upload($image);
+            $image_url = empty($uploadImage['url']) ? '' : $uploadImage['url'];
+        }
+
+        $result = $participantService->addParticipant([
+            'team_name' => $team_name, 
+            'title' => $title, 
+            'image_url' => $image_url, 
+            'image_org_name' => $image_org_name
+        ]);
+
+        echo jsonEncode($result);
+        exit;
+
     case 'onoff' :
         $onoff = $_POST['onoff'];
         $onOffService = new OnOffService();

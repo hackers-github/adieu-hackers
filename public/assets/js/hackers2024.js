@@ -111,3 +111,37 @@ function onoff(onoff){
 
     ajax_request(formData);
 }
+
+// 참가자 추가
+function add_participant(){
+    const team_name = $('#new input[name="team_name"]').val();
+    const title = $('#new input[name="title"]').val();
+    const imageFile = $('#new input[name="image"]')[0].files[0]; // 파일 객체 가져오기
+
+    if(!validate_participant({team_name: team_name, title: title, image: imageFile})){
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('action', 'add_participant');
+    formData.append('team_name', team_name);
+    formData.append('title', title);
+    formData.append('image', imageFile);
+
+    ajax_request(formData);
+}
+
+// 참가자 유효성 검사
+function validate_participant(data){
+    for(const key in data){
+        if(!data[key]){
+            if(key == 'image'){
+                alert('이미지를 등록해주세요.');
+            }else{
+                alert('빈칸을 채워주세요.');
+            }
+            return false;
+        }
+    }
+    return true;
+}

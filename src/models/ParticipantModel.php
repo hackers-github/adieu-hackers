@@ -12,4 +12,12 @@ class ParticipantModel extends BaseModel
         $result = $this->db_slave->stmt_execute('all');
         return $result;
     }
+
+    public function insertData($params) {
+        $qry = "INSERT INTO event_hackers_participant (team_name, title, image_url, image_org_name, reg_date) VALUES (?, ?, ?, ?, NOW())";
+        $this->db->prepare($qry);
+        $this->db->stmt_bind_param("ssss", [$params['team_name'], $params['title'], $params['image_url'], $params['image_org_name']]);
+        $result = $this->db->stmt_execute('insert');   
+        return $result;
+    }
 }
