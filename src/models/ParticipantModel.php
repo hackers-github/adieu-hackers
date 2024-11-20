@@ -28,4 +28,12 @@ class ParticipantModel extends BaseModel
         $result = $this->db->stmt_execute('update');
         return $result;
     }
+
+    public function deleteData($p_id) {
+        $qry = "DELETE FROM event_hackers_participant WHERE p_id = ?";
+        $this->db->prepare($qry);
+        $this->db->stmt_bind_param("i", [$p_id]);
+        $result = $this->db->stmt_execute('delete');
+        return $result;
+    }
 }

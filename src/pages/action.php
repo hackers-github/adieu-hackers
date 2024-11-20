@@ -77,7 +77,15 @@ switch($action){
 
         echo jsonEncode($result);
         exit;
-        
+
+    case 'del_participant' :
+        $participantService = new ParticipantService();
+
+        $p_id = $_POST['p_id'];
+        $result = $participantService->delParticipant($p_id);
+        echo jsonEncode($result);
+        exit;
+
     case 'onoff' :
         $onoff = $_POST['onoff'];
         $onOffService = new OnOffService();

@@ -165,6 +165,15 @@ function modify_participant(p_id){
     ajax_request(formData);
 }
 
+// 참가자 삭제
+function del_participant(p_id){
+    const formData = new FormData();
+    formData.append('action', 'del_participant');
+    formData.append('p_id', p_id);
+
+    ajax_request(formData);
+}
+
 // 참가자 유효성 검사
 function validate_participant(data){
     for(const key in data){

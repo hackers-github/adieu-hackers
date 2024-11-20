@@ -70,6 +70,22 @@ class ParticipantService
         }
     }
 
+    // 참가자 삭제
+    public function delParticipant($p_id) {
+        if(!validate_data(['p_id' => $p_id])){
+            return ['result' => 'fail', 'message' => '잘못된 접근입니다.'];
+            exit;
+        }
+
+        $result = $this->participantModel->deleteData($p_id);
+
+        if($result['success']){
+            return ['result' => 'success', 'message' => '참가자 삭제가 완료되었습니다.'];
+        }else{
+            return ['result' => 'fail', 'message' => '오류가 발생했습니다.'];
+        }
+    }
+
     // 참가자 조회
     public function getParticipantList() {
         return $this->participantModel->selectParticipantList();
