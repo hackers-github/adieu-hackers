@@ -138,6 +138,25 @@ switch($action){
         }
         exit;
 
-    break;
+    case 'add_user' :
+        $memberService = new MemberService();
+        $user_mobile = $_POST['user_mobile'];
+        $user_level = $_POST['user_level'];
+        $result = $memberService->addUser([
+            'user_mobile' => $user_mobile, 
+            'user_level' => $user_level
+        ]);
+        echo jsonEncode($result);
+        exit;
+
+    case 'vote_reset' :
+        $voteService = new VoteService();
+        $result = $voteService->resetVote();
+        if($result['success']){
+            echo jsonEncode(['result' => 'success', 'message' => '투표 초기화가 완료되었습니다.']);
+        }else{
+            echo jsonEncode(['result' => 'fail', 'message' => '오류가 발생했습니다.']);
+        }
+        exit;
 }
 ?>
