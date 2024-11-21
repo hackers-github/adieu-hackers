@@ -9,6 +9,8 @@ $adminMenu = [
     'tab2' => ['title' => '투표내역', 'path' => '/admin/tab2.php'],
     'tab3' => ['title' => '인원추가', 'path' => '/admin/tab3.php'],
 ];
+
+$includePath = PAGES_PATH . $adminMenu[$tab]['path'];
 ?>
 
 <script type="text/javascript" src="<?=$config['js_url']?>/jquery-1.12.4.min.js"></script>
@@ -25,5 +27,9 @@ $adminMenu = [
         <?php } ?>
     </div>
 
-    <?php include PAGES_PATH . $adminMenu[$tab]['path']; ?>
+    <?php
+        if(!empty($includePath) && file_exists($includePath)) {
+            include $includePath; 
+        }
+    ?>
 </div>
