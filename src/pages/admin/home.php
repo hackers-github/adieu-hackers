@@ -2,7 +2,7 @@
 
 checkAdminPageAuth();
 
-$tab = $_GET['tab'] ?? 'tab1';
+$tab = empty($_GET['tab']) ? 'tab1' : $_GET['tab'];
 
 $adminMenu = [
     'tab1' => ['title' => '투표설정', 'path' => '/admin/tab1.php'],

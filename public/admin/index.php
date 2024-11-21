@@ -1,7 +1,7 @@
 <?php
 include '../../src/bootstrap.php';
 
-$page = $_GET['page'] ?? 'home';
+$page = empty($_GET['page']) ? 'home' : $_GET['page'];
 
 if(!in_array($page, $config['admin_allowed_pages'])) {
     header('Location: /');
