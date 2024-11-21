@@ -31,7 +31,7 @@ $onoff = $onOffService->getOnOff();
             <td colspan="2">이미지</td>
             <td>관리</td>
         </tr>
-        <? if(!empty($participants)) { 
+        <?php if(!empty($participants)) { 
             // 데이터 보안
             $participants = escapeHtmlData($participants);
 
@@ -47,17 +47,17 @@ $onoff = $onOffService->getOnOff();
                         <input type="hidden" name="original_image_name" value="<?=$participant['image_org_name']?>">
                     </td>
                     <td>
-                        <? if(!empty($participant['image_url'])){ ?>
+                        <?php if(!empty($participant['image_url'])){ ?>
                             <img src="<?=$participant['image_url']?>" width="100" height="100" alt="<?=$participant['image_org_name']?>">
                             <div><?=$participant['image_org_name']?></div>
-                        <? } ?>
+                        <?php } ?>
                     </td>
                     <td>
                         <button onclick="modify_participant(<?=$participant['p_id']?>)">수정</button>
                         <button onclick="del_participant(<?=$participant['p_id']?>)">삭제</button>
                     </td>
                 </tr>
-            <? } 
+            <?php } 
         } ?>
     </table>
 

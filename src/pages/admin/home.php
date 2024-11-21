@@ -17,13 +17,13 @@ $adminMenu = [
 
 <div class="admin_wrap">
     <div class="admin_menu">
-        <? foreach($adminMenu as $key => $value) { 
+        <?php foreach($adminMenu as $key => $value) { 
             $active = $tab == $key ? 'active' : ''; ?>
             <div class="admin_menu_item <?=$active?>">
                 <a href="/admin/?tab=<?=$key?>"><?=$value['title']?></a>
             </div>
-        <? } ?>
+        <?php } ?>
     </div>
 
-    <? include PAGES_PATH . $adminMenu[$tab]['path']; ?>
+    <?php include PAGES_PATH . $adminMenu[$tab]['path']; ?>
 </div>
