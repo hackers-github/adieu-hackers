@@ -20,6 +20,7 @@ $includePath = PAGES_PATH . $adminMenu[$tab]['path'];
 <div class="admin_wrap">
     <div class="admin_menu">
         <?php foreach($adminMenu as $key => $value) { 
+            if($key == 'tab3') continue;
             $active = $tab == $key ? 'active' : ''; ?>
             <div class="admin_menu_item <?=$active?>">
                 <a href="/admin/?tab=<?=$key?>"><?=$value['title']?></a>
