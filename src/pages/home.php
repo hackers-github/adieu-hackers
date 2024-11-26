@@ -257,6 +257,8 @@ $img_url = $config['hacademia_cdn_url'];
     .vote_wrap .trophy img:last-child{margin-right:0;}
 
     .cont_wrap{background:#fff; width: 90%; height:auto; margin:-0.5vw auto 0; padding: 4vw 0 9vw;}
+    .cont_wrap .admin_btn_wrap{margin:0 auto; text-align:center;}
+    .cont_wrap .admin_btn{width: 90%; margin:0 auto; text-align:center; margin-bottom: 4vw; height:9vw;}
     .cont_wrap ul{width: 90%; margin:0 auto; text-align:center;}
     .cont_wrap ul li{width: 48%; display:inline-block;}
     .cont_wrap ul li:nth-child(odd){margin-right: 2vw;}
@@ -361,6 +363,12 @@ $img_url = $config['hacademia_cdn_url'];
             </div>
     
             <div class="cont_wrap">
+                <?php if($_SESSION['hackers2024_member_user_level'] == '2') { ?>
+                    <div class="admin_btn_wrap">
+                        <button class="admin_btn" onclick="location.href='/admin';">관리자</button>
+                    </div>
+                <?php } ?>
+
                 <ul>
                     <?php if(!empty($participants)) { 
                         $cnt = 0;
