@@ -141,6 +141,7 @@ $img_url = $config['hacademia_cdn_url'];
         $('.vote_pop').fadeOut();
         uncheckVote();
         $('#selected_participant input[name="selected_p_id"]').val('');
+        $('.vote_wrap').css('display', 'block');
     }
 
     // 투표 완료 팝업 열기
@@ -185,6 +186,7 @@ $img_url = $config['hacademia_cdn_url'];
         $('.vote_confirm').fadeOut();
         uncheckVote();
         $('#selected_participant input[name="selected_p_id"]').val('');
+        $('.vote_wrap').css('display', 'block');
     }
 
     $(document).ready(function(){
@@ -209,9 +211,12 @@ $img_url = $config['hacademia_cdn_url'];
             const team_name = $(this).find('a.name_wrap p:first-child').text();
             const image_url = $(this).find('#img_'+p_id).attr('src');
 
+            $('.vote_wrap').css('display', 'none');
+            
             // 투표 기회 체크
             if(myVote.isAllVote()) {
                 alert('투표 기회가 모두 소진되었습니다.');
+                $('.vote_wrap').css('display', 'block');
                 return;
             }
 
@@ -219,6 +224,7 @@ $img_url = $config['hacademia_cdn_url'];
             const votedPIdArr = myVote.getPId();
             if(votedPIdArr.includes(p_id.toString())) {
                 alert('이미 투표가 완료된 참가자입니다.');
+                $('.vote_wrap').css('display', 'block');
                 return;
             }
             
@@ -302,7 +308,7 @@ $img_url = $config['hacademia_cdn_url'];
     /* vote_pop */
     .vote_pop{display:none; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: 7;}
     .pop_bg{position:fixed; top:0; left:0; width: 100%; height:100%;background:rgba(0,0,0,0.6);}
-    .vote_con{width: 90%; height:162vw; background:#fff; position:absolute; top:3%; left:50%; transform:translatex(-50%);}
+    .vote_con{width: 90%; height:164vw; background:#fff; position:absolute; top:4vw; left:50%; transform:translatex(-50%);}
 
     .vote_con .vote_top{border-bottom:0.4vw solid #111; font-size:4vw; letter-spacing: -0.08em; display: flex; justify-content: space-between;     margin: 2vw 5vw 8vw; padding: 3vw 0; font-weight:700;}
     .vote_con .vote_top span{}
@@ -313,7 +319,7 @@ $img_url = $config['hacademia_cdn_url'];
     .vote_con .vote_middle{width: 66%; margin: 0 auto;}
     .vote_con .vote_middle > div{background:#efefef; border-radius:3vw; overflow:hidden;}
     .vote_con .vote_middle div img{}
-    .vote_con .vote_middle p{font-size:3.4vw; font-weight:700; text-align:center; padding: 3vw 0 6vw;}
+    .vote_con .vote_middle p{font-size:3.4vw; font-weight:700; text-align:center; padding: 3vw 0 4vw;}
 
     .vote_con .vote_bott{margin-top:2vw;}
     .vote_con .vote_bott input{display: none;}
@@ -345,7 +351,7 @@ $img_url = $config['hacademia_cdn_url'];
     .alert_wrap .alert_info ul{width: 100%; display:flex; justify-content: space-between; height:12vw; line-height:12vw;}
     .alert_wrap .alert_info ul li{width: 50%; font-size:4vw; color:#fff;}
     .alert_wrap .alert_info ul li:first-child{background:#444444;}
-    .alert_wrap .alert_info ul li .vote_btn{height:12vw; line-height:12vw; margin:0;}
+    .alert_wrap .alert_info ul li .vote_btn{height:12vw; line-height:12vw; margin:0; position: relative;}
 
     /* alert_wrap2 */
     .alert_wrap2 .alert_info .alert_tit{font-size:3.6vw; font-weight:500; padding:0 2vw 4vw;}
