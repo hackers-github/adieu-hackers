@@ -27,6 +27,7 @@ function ajax_request(data){
                 alert(response.message);
             }
 
+            // 성공 시 액션별 처리
             if(response.result == 'success'){
                 switch(action){
                     case 'login':
@@ -47,6 +48,15 @@ function ajax_request(data){
                         break;
 
                     default:
+                        location.reload();
+                        break;
+                }
+            }
+
+            // 실패 시 액션별 처리
+            if(response.result == 'fail'){
+                switch(action){
+                    case 'vote':
                         location.reload();
                         break;
                 }

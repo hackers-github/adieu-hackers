@@ -95,7 +95,6 @@ switch($action){
 
     case 'login' :
         $user_mobile = $_POST['user_mobile'];
-        $onOff = $_POST['onoff'];
 
         $memberService = new MemberService();
         $onOffService = new OnOffService();
@@ -123,6 +122,14 @@ switch($action){
         $member_id = $_SESSION['hackers2024_member_id'];
         $p_id = $_POST['p_id'];
         $vote_type = $_POST['vote_type'];
+
+        // 투표 종료 체크
+        $onOffService = new OnOffService();
+        $onOffResult = $onOffService->checkOnOff($onOffService->getOnOff());
+        if($onOffResult['result'] == 'fail') {
+            echo jsonEncode($onOffResult);
+            exit;
+        }
 
         $voteService = new VoteService();
         $voteResult = $voteService->vote([

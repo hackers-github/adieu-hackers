@@ -1,6 +1,7 @@
 <?php
 use src\services\ParticipantService;
 use src\services\VoteService;
+use src\services\OnOffService;
 
 if(!empty($_GET['test']) && $_GET['test'] == '1') {
     $_SESSION['hackers2024_member_id'] = '999';
@@ -12,6 +13,15 @@ checkLogin();
 
 $participantService = new ParticipantService();
 $voteService = new VoteService();
+$onOffService = new OnOffService();
+
+// 투표 종료 체크
+$onOff = $onOffService->getOnOff();
+$onOffResult = $onOffService->checkOnOff($onOff);
+if($onOffResult['result'] == 'fail') {
+    echo '<script>alert("'.$onOffResult['message'].'");</script>';
+    exit;
+}
 
 // 참가자
 $participants = $participantService->getParticipantList();
