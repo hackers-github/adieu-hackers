@@ -234,12 +234,6 @@ $img_url = $config['hacademia_cdn_url'];
             // 투표 팝업 트로피 배지 표시
             myVote.trophyBadgePop();
 
-            // 전체 투표 시 버튼 숨김
-            if(myVote.isAllVote()) {
-                alert('투표 기회가 모두 소진되었습니다.')
-                $('.vote_pop .vote_bott button').css('display', 'none');
-            }
-
             // 투표 팝업 표시
             $('.vote_pop .vote_middle img').attr('src', image_url);
             $('.vote_pop .vote_middle p').text(team_name);
