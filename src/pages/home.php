@@ -87,6 +87,7 @@ $img_url = $config['hacademia_cdn_url'];
                 let html = '<img src="<?=$img_url?>trophy'+$(this).data('vote_type')+'.png" alt="">';
 
                 // 트로피 배지 추가
+                $('li[data-p_id="'+$(this).val()+'"] .vote_trophy').html('');
                 $('li[data-p_id="'+$(this).val()+'"] .vote_trophy').append(html);
                 $('li[data-p_id="'+$(this).val()+'"] .sum_wrap').addClass(voteType[$(this).data('vote_type')]);
                 $('li[data-p_id="'+$(this).val()+'"] .sum_wrap span:first-child').addClass(voteType[$(this).data('vote_type')]);
@@ -208,6 +209,19 @@ $img_url = $config['hacademia_cdn_url'];
             const team_name = $(this).find('a.name_wrap p:first-child').text();
             const image_url = $(this).find('#img_'+p_id).attr('src');
 
+            // 투표 기회 체크
+            if(myVote.isAllVote()) {
+                alert('투표 기회가 모두 소진되었습니다.');
+                return;
+            }
+
+            // 이미 투표한 참가자 체크
+            const votedPIdArr = myVote.getPId();
+            if(votedPIdArr.includes(p_id.toString())) {
+                alert('이미 투표가 완료된 참가자입니다.');
+                return;
+            }
+            
             // 선택한 참가자 정보 설정
             $('#selected_participant input[name="selected_p_id"]').val(p_id);
 
