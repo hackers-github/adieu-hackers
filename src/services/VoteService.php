@@ -13,6 +13,11 @@ class VoteService
         $this->voteModel = new VoteModel();
     }
 
+    // 투표 초기화
+    public function resetVote() {
+        return $this->voteModel->deleteAll();
+    }
+
     // 투표 통계
     public function getVoteStatistics() {
         $votes = [];

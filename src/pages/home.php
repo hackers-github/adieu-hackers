@@ -1,12 +1,27 @@
 <?php
-
 use src\services\ParticipantService;
 use src\services\VoteService;
+use src\services\OnOffService;
+
+if(!empty($_GET['test']) && $_GET['test'] == '1') {
+    $_SESSION['hackers2024_member_id'] = '999';
+    $_SESSION['hackers2024_member_cp'] = '01011111111';
+    $_SESSION['hackers2024_member_user_level'] = '1';
+}
 
 checkLogin();
 
 $participantService = new ParticipantService();
 $voteService = new VoteService();
+$onOffService = new OnOffService();
+
+// 투표 종료 체크
+$onOff = $onOffService->getOnOff();
+$onOffResult = $onOffService->checkOnOff($onOff);
+if($onOffResult['result'] == 'fail') {
+    echo '<script>alert("'.$onOffResult['message'].'");</script>';
+    exit;
+}
 
 // 참가자
 $participants = $participantService->getParticipantList();
@@ -257,7 +272,7 @@ $img_url = $config['hacademia_cdn_url'];
     .vote_wrap .trophy img.trophy_off{display:none;}
     .vote_wrap .trophy img:last-child{margin-right:0;}
 
-    .cont_wrap{background:#fff; width: 90%; height:auto; margin:-0.5vw auto 0; padding: 4vw 0 14vw;}
+    .cont_wrap{background:#fff; width: 90%; height:auto; margin:-0.5vw auto 0; padding: 4vw 0 9vw;}
     .cont_wrap ul{width: 90%; margin:0 auto; text-align:center;}
     .cont_wrap ul li{width: 48%; display:inline-block;}
     .cont_wrap ul li:nth-child(odd){margin-right: 2vw;}
@@ -363,6 +378,12 @@ $img_url = $config['hacademia_cdn_url'];
             </div>
     
             <div class="cont_wrap">
+                <?php if($_SESSION['hackers2024_member_user_level'] == '2') { ?>
+                    <div class="admin_btn_wrap">
+                        <button class="admin_btn" onclick="location.href='/admin';">관리자</button>
+                    </div>
+                <?php } ?>
+
                 <ul>
                     <?php if(!empty($participants)) { 
                         $cnt = 0;
