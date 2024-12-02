@@ -198,7 +198,7 @@ $img_url = $config['hacademia_cdn_url'];
 
         if (teamNameLength > 10) {
             $nameWrap.css('font-size', '3.2vw'); 
-            $nameWrap.css('height', '8vw');
+            $nameWrap.css('height', '9vw');
         } else {
             $nameWrap.css('font-size', '3.6vw');
             $nameWrap.css('height', '4vw');
@@ -302,7 +302,7 @@ $img_url = $config['hacademia_cdn_url'];
 
     .cont_wrap{background:#fff; width: 90%; height:auto; margin:-0.5vw auto 0; padding: 4vw 0 9vw;}
     .cont_wrap ul{width: 90%; margin:0 auto; text-align:center;}
-    .cont_wrap ul li{width: 48%; display:inline-block;}
+    .cont_wrap ul li{width: 48%; display:inline-block; vertical-align:top;}
     .cont_wrap ul li:nth-child(odd){margin-right: 2vw;}
     .cont_wrap ul li a{display:block;}
 
