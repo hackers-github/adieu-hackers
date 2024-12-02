@@ -15,6 +15,10 @@ class OnOffService
 
     // 관리자 투표 종료 체크
     public function checkOnOff($onOff) {
+        if(empty($onOff) || empty($_SESSION['hackers2024_member_user_level'])){
+            return ['result' => 'fail', 'message' => '투표 참여가 가능한 시간이 아닙니다.'];
+        }
+
         if($onOff == '2' && $_SESSION['hackers2024_member_user_level'] == '1'){
             session_unset();
             session_destroy();

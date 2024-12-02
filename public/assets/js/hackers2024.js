@@ -1,5 +1,8 @@
 let isProcessing = false;
 function ajax_request(data){
+    let result = null;
+    const notReload = ['check_onoff', 'login', 'vote'];
+    const notAlert = ['check_onoff'];
     const action = data.get('action');
     console.log(action);
 
@@ -17,49 +20,19 @@ function ajax_request(data){
         dataType: 'json',
         async: false,
         success: function(response){
+            result = response;
             isProcessing = false;
 
             if(typeof response == 'string'){    
                 response = JSON.parse(response);
             }
 
-            if(response.message){
+            if(response.message && !notAlert.includes(action)){
                 alert(response.message);
             }
 
-            // 성공 시 액션별 처리
-            if(response.result == 'success'){
-                switch(action){
-                    case 'login':
-                        location.href = '/';
-                        break;
-
-                    case 'vote':
-                        $('.alert_wrap').fadeOut();
-                        $('.vote_pop').fadeOut();
-                        $('.vote_confirm').fadeIn();
-
-                        myVote.setVote(response.p_id, response.vote_type);
-                        myVote.trophyBadgeList();
-                        myVote.trophyBadge();
-                        myVote.trophyBadgePop();
-
-                        openPopConfirm(response.p_id, response.vote_type);
-                        break;
-
-                    default:
-                        location.reload();
-                        break;
-                }
-            }
-
-            // 실패 시 액션별 처리
-            if(response.result == 'fail'){
-                switch(action){
-                    case 'vote':
-                        location.reload();
-                        break;
-                }
+            if(!notReload.includes(action)){
+                location.reload();
             }
         }, 
         error: function(xhr, status, error){
@@ -67,17 +40,40 @@ function ajax_request(data){
             alert('오류가 발생했습니다.');
         }
     });
+
+    return result;
 }
 
+// onoff 설정 체크
+function check_onoff(){
+    const formData = new FormData();
+    formData.append('action', 'check_onoff');
+
+    const result = ajax_request(formData);
+
+    // onoff 설정 체크
+    if(result.result == 'fail'){
+        alert(result.message);
+        return false;
+    }
+
+    return true;
+}
+
+// 로그인
 function login(){
     const formData = new FormData();
     formData.append('action', 'login');
     formData.append('user_mobile', $('[name=user_mobile]').val());
     formData.append('onoff', $('[name=onoff]').val());
     
-    ajax_request(formData);
+    const result = ajax_request(formData);
+    if(result.result == 'success'){
+        location.href = '/';
+    }
 }
 
+// 투표
 function vote(){
     const formData = new FormData();
     const p_id = $('#selected_participant input[name=selected_p_id]').val();
@@ -109,8 +105,21 @@ function vote(){
     formData.append('action', 'vote');
     formData.append('p_id', p_id);
     formData.append('vote_type', vote_type);
+    const result = ajax_request(formData);
 
-    ajax_request(formData);
+    if(result.result == 'success'){
+        // 얼럿, 팝업 숨김, 투표 완료 팝업 노출
+        $('.alert_wrap').fadeOut();
+        $('.vote_pop').fadeOut();
+        $('.vote_confirm').fadeIn();
+
+        myVote.setVote(result.p_id, result.vote_type);
+        myVote.trophyBadgeList();
+        myVote.trophyBadge();
+        myVote.trophyBadgePop();
+
+        openPopConfirm(result.p_id, result.vote_type);
+    }
 }
 
 // 투표창 설정 시작/종료

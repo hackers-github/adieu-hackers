@@ -146,32 +146,18 @@ $img_url = $config['hacademia_cdn_url'];
 
     // 투표 완료 팝업 열기
     const openPopConfirm = (p_id, vote_type) => {
+        const trophy_name = {'1': '골드 트로피', '2': '실버 트로피', '3': '브론즈 트로피'};
         const number = $('li[data-p_id="'+p_id+'"] .number').text();
         const img_url = $('li[data-p_id="'+p_id+'"] img').attr('src');
         const team_name = $('li[data-p_id="'+p_id+'"] a.name_wrap p:first-child').text();
         const trophy_img = '<?=$img_url?>l_trophy'+vote_type+'.png';
-        
-        let trophy_name = '';
-        switch(vote_type) {
-            case '1':
-                trophy_name = '골드 트로피';
-                break;
-
-            case '2':
-                trophy_name = '실버 트로피';
-                break;
-
-            case '3':
-                trophy_name = '브론즈 트로피';
-                break;  
-        }
 
         Object.entries(voteType).forEach(function([key, value]){
             $('.vote_confirm .vote_middle .team_wrap .sum_wrap').removeClass(value);
             $('.vote_confirm .vote_middle .team_wrap .sum_wrap .number').removeClass(value);
         });
 
-        $('.vote_confirm .vote_middle .team_wrap p').eq(0).text(trophy_name);
+        $('.vote_confirm .vote_middle .team_wrap p').eq(0).text(trophy_name[vote_type]);
         $('.vote_confirm .vote_middle .team_wrap p').eq(1).text(team_name);
         $('.vote_confirm .vote_middle .team_wrap .sum_wrap .number').text(number);
         $('.vote_confirm .vote_middle .team_wrap .sum_wrap img').attr('src', img_url);
@@ -224,16 +210,19 @@ $img_url = $config['hacademia_cdn_url'];
 
         // 참가자 선택
         $('.cont_wrap li').click(function(){
+            const onOffCheckResult = check_onoff();
             const p_id = $(this).data('p_id');
             const team_name = $(this).find('a.name_wrap p:first-child').text();
             const image_url = $(this).find('#img_'+p_id).attr('src');
 
-            $('.vote_wrap').css('display', 'none');
-            
+            // onoff 설정 체크
+            if(!onOffCheckResult){
+                return;
+            }
+
             // 투표 기회 체크
             if(myVote.isAllVote()) {
                 alert('투표 기회가 모두 소진되었습니다.');
-                $('.vote_wrap').css('display', 'block');
                 return;
             }
 
@@ -241,10 +230,12 @@ $img_url = $config['hacademia_cdn_url'];
             const votedPIdArr = myVote.getPId();
             if(votedPIdArr.includes(p_id.toString())) {
                 alert('이미 투표가 완료된 참가자입니다.');
-                $('.vote_wrap').css('display', 'block');
                 return;
             }
-            
+
+            // 투표 목록 숨김
+            $('.vote_wrap').css('display', 'none');
+
             // 선택한 참가자 정보 설정
             $('#selected_participant input[name="selected_p_id"]').val(p_id);
 

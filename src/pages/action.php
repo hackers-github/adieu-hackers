@@ -14,6 +14,13 @@ if(empty($_POST['action'])){
 $action = $_POST['action'];
 
 switch($action){
+    case 'check_onoff':
+        $onOffService = new OnOffService();
+        $onoff = $onOffService->getOnOff();
+        $result = $onOffService->checkOnOff($onoff);
+        echo jsonEncode($result);
+        exit;
+
     case 'add_participant' :
         $participantService = new ParticipantService();
         if(IS_DEV){
@@ -122,14 +129,6 @@ switch($action){
         $member_id = $_SESSION['hackers2024_member_id'];
         $p_id = $_POST['p_id'];
         $vote_type = $_POST['vote_type'];
-
-        // 투표 종료 체크
-        $onOffService = new OnOffService();
-        $onOffResult = $onOffService->checkOnOff($onOffService->getOnOff());
-        if($onOffResult['result'] == 'fail') {
-            echo jsonEncode($onOffResult);
-            exit;
-        }
 
         $voteService = new VoteService();
         $voteResult = $voteService->vote([
