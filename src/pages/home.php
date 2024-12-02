@@ -190,6 +190,20 @@ $img_url = $config['hacademia_cdn_url'];
     }
 
     $(document).ready(function(){
+        //팀이름 글자 크기 조절
+        const $nameWrap = $('.name_wrap p:first-child'); 
+        const teamName = $nameWrap.text(); 
+        // console.log(teamName)
+        const teamNameLength = teamName.length; 
+
+        if (teamNameLength > 10) {
+            $nameWrap.css('font-size', '3.2vw'); 
+            $nameWrap.css('height', '8vw');
+        } else {
+            $nameWrap.css('font-size', '3.6vw');
+            $nameWrap.css('height', '4vw');
+        }
+
         // 투표한 트로피 배지 숨김
         myVote.trophyBadgeList();
         myVote.trophyBadge();
@@ -281,8 +295,8 @@ $img_url = $config['hacademia_cdn_url'];
     .mark.off{background:url("<?=$img_url?>mark_btn.png") no-repeat 0; width:9.9vw; height:11vw; z-index: 5;}
     .vote_wrap{display:none;}
     .vote_wrap .top_wrap{width: 90%; margin:0 auto;}
-    .vote_wrap .trophy{width: 30%; position:absolute; top:0; left:57.8%;}
-    .vote_wrap .trophy img{width: 22.6%; background:#f6f8fa; margin-right:3.42vw;}
+    .vote_wrap .trophy{width: 31%; position:absolute; top:0; left:57.8%;}
+    .vote_wrap .trophy img{width: 22.8%; background:#f6f8fa; margin-right:3.1vw;}
     .vote_wrap .trophy img.trophy_off{display:none;}
     .vote_wrap .trophy img:last-child{margin-right:0;}
 
@@ -296,8 +310,8 @@ $img_url = $config['hacademia_cdn_url'];
     .cont_wrap ul li a.sum_wrap .vote_trophy{position:absolute; bottom:10%; right:10%; width: 6vw; height:11.6vw;}
     .cont_wrap ul li a.name_wrap{padding:2vw 0 6vw;}
     .cont_wrap ul li a img{}
-    .cont_wrap ul li a p{font-size:3.2vw; color:#7b818f;}
-    .cont_wrap ul li a p:first-child{font-size:3.6vw; font-weight:900; color:#222;}
+    .cont_wrap ul li a p{font-size:3vw; color:#7b818f;}
+    .cont_wrap ul li a p:first-child{font-size: 3.6vw; font-weight:900; color:#222; height:5vw;}
 
     /* vote_pop */
     .vote_pop{display:none; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: 7;}
@@ -312,8 +326,7 @@ $img_url = $config['hacademia_cdn_url'];
 
     .vote_con .vote_middle{width: 66%; margin: 0 auto;}
     .vote_con .vote_middle > div{background:#efefef; border-radius:3vw; overflow:hidden;}
-    .vote_con .vote_middle div img{}
-    .vote_con .vote_middle p{font-size:3.4vw; font-weight:700; text-align:center; padding: 3vw 0 4vw;}
+    .vote_con .vote_middle p{font-size:3.4vw; font-weight:700; text-align:center; padding: 2.6vw 0 4vw;}
 
     .vote_con .vote_bott{margin-top:2vw;}
     .vote_con .vote_bott input{display: none;}
@@ -355,11 +368,13 @@ $img_url = $config['hacademia_cdn_url'];
     .vote_confirm .vote_con .vote_top{margin: 2vw 5vw 0;}
     .vote_confirm .vote_con .vote_middle{width: 100%;}
     .vote_confirm .vote_con .vote_middle .team_wrap{position:absolute; top:14.4%; left:50%; transform:translatex(-50%); width: 80%; background:transparent; }
-    .vote_confirm .vote_con .vote_middle .team_wrap p{margin-bottom:3vw; color:#444; letter-spacing: -0.08rem;}
+    .vote_confirm .vote_con .vote_middle .team_wrap p{margin-bottom:5.8vw; color:#444; letter-spacing: -0.08rem;}
     .vote_confirm .vote_con .vote_middle .team_wrap .sum_wrap{width: 57%; margin:6vw auto 0;}
     .vote_confirm .vote_middle .team_trohpy{position:absolute; top:51.4%; left:65.6%; display:block; width: 15.6%;}
     .vote_confirm .vote_con .vote_btn{margin:10.4vw 0 0;}
 
+    /* 관리자 버튼 */
+    .admin_btn_wrap button{width: 12vw; height:4vw; margin-bottom:2vw;}
 </style>
 
 <body>
