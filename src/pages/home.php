@@ -298,8 +298,8 @@ $img_url = $config['hacademia_cdn_url'];
     .mark.off{background:url("<?=$img_url?>mark_btn.png") no-repeat 0; width:9.9vw; height:11vw; z-index: 5;}
     .vote_wrap{display:none;}
     .vote_wrap .top_wrap{width: 90%; margin:0 auto;}
-    .vote_wrap .trophy{width: 31%; position:absolute; top:0; left:57.8%;}
-    .vote_wrap .trophy img{width: 22.8%; background:#f6f8fa; margin-right:3.1vw;}
+    .vote_wrap .trophy{width: 32%; position:absolute; top:-0.4vw; left:57.8%;}
+    .vote_wrap .trophy img{width: 23.2%; background:#f6f8fa; margin-right:2.8vw;}
     .vote_wrap .trophy img.trophy_off{display:none;}
     .vote_wrap .trophy img:last-child{margin-right:0;}
 
