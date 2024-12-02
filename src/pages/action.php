@@ -130,6 +130,14 @@ switch($action){
         $p_id = $_POST['p_id'];
         $vote_type = $_POST['vote_type'];
 
+        // 투표 종료 체크
+        $onOffService = new OnOffService();
+        $onOffResult = $onOffService->checkOnOff($onOffService->getOnOff());
+        if($onOffResult['result'] == 'fail') {
+            echo jsonEncode($onOffResult);
+            exit;
+        }
+
         $voteService = new VoteService();
         $voteResult = $voteService->vote([
             'member_id' => $member_id,
