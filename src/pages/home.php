@@ -191,18 +191,21 @@ $img_url = $config['hacademia_cdn_url'];
 
     $(document).ready(function(){
         //팀이름 글자 크기 조절
-        const $nameWrap = $('.name_wrap p:first-child'); 
-        const teamName = $nameWrap.text(); 
-        // console.log(teamName)
-        const teamNameLength = teamName.length; 
+        $('.name_wrap p:first-child').each(function(){
+            const teamName = $(this).text(); 
+            const teamNameLength = teamName.length; 
 
-        if (teamNameLength > 10) {
-            $nameWrap.css('font-size', '3.2vw'); 
-            $nameWrap.css('height', '9vw');
-        } else {
-            $nameWrap.css('font-size', '3.6vw');
-            $nameWrap.css('height', '4vw');
-        }
+            console.log(teamName);
+            console.log(teamNameLength);
+
+            if (teamNameLength > 10) {
+                $(this).css('font-size', '3.2vw'); 
+                $(this).css('height', '9vw');
+            } else {
+                $(this).css('font-size', '3.6vw');
+                $(this).css('height', '4vw');
+            }
+        });
 
         // 투표한 트로피 배지 숨김
         myVote.trophyBadgeList();
